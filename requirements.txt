@@ -2,4 +2,4 @@ pillow
 pyrogram
 aiohttp
 aiofiles
-dotenv_python
+python-dotenv

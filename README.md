@@ -4,9 +4,9 @@
 
 ### 🤖 Deploy no Heroku
 
-### 🤖 Rodando o bot localmente
-
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+### 🤖 Rodando o bot localmente
 
 #### Pré-requisitos
 

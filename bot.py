@@ -14,9 +14,9 @@ def main():
     if not exists("temp"):
         os.mkdir("temp")
 
-    API_ID = os.environ("API_ID")
-    API_HASH = os.environ("API_HASH")
-    BOT_TOKEN = os.environ("BOT_TOKEN")
+    API_ID = os.environ.get("API_ID")
+    API_HASH = os.environ.get("API_HASH")
+    BOT_TOKEN = os.environ.get("BOT_TOKEN")
     
     plugins = dict(
         root="handlers"

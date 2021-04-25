@@ -1,4 +1,4 @@
-import aiohttp, asyncio, json, os
+import aiohttp, asyncio, json, os, requests
 from humanfriendly import format_size
 from pyrogram import Client
 
@@ -42,34 +42,22 @@ async def download_file(data: list, chat_id: int, bot: Client):
       parse_mode="markdown"
     )
 
-    async with aiohttp.ClientSession() as session:
-      async with session.get(EPISODE['url']) as res:
- 
-        if res.status == 200:
+    request = requests.get(EPISODE['url'], stream = True)
+    if request.status_code == 200:
+    
+        with open(f'temp/{EPISODE["name"]}', 'wb') as file:
+            for chunk in request.iter_content(chunk_size=1024):
+                if chunk:
+                    file.write(chunk)
 
-          file = open(f'temp/{EPISODE["name"]}', 'wb')
-          while True:
-            chunk = await res.content.read()
-
-            if not chunk:
-              break
-
-            file.write(chunk)
-          
-          file.close()
-
-#         await file.write(await res.read())
-#         await file.close()
-
-        else:
-          
-          await bot.edit_message_text(
-            chat_id, EDIT.message_id, 
-            '**Erro ao fazer o download do arquivo!**',
-            parse_mode="markdown"
-          )
-
-          return
+    else:
+      await bot.edit_message_text(
+        chat_id, EDIT.message_id, 
+        '**Erro ao fazer o download do arquivo!**',
+        parse_mode="markdown"
+      )
+      
+      return None
 
     SIZE = format_size(os.path.getsize(f'temp/{EPISODE["name"]}'))
     

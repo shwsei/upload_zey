@@ -4,3 +4,4 @@ aiohttp
 requests
 humanfriendly
 python-dotenv
+tgcrypto

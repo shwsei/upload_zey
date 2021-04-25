@@ -1,5 +1,6 @@
 pillow
 pyrogram
 aiohttp
+requests
 humanfriendly
 python-dotenv

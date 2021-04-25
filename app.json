@@ -1,0 +1,29 @@
+{
+  "name": "Uploader Zey, easy deploy",
+  "repository": "https://github.com/Lewizh11/upload_zey",
+  "logo": "https://avatars.githubusercontent.com/u/70781485?s=400&u=bd30683cebb73b085d5d9ab955cf7b8eda80905f&v=4",
+  "keywords": [
+    "python",
+    "upload",
+    "telegrambot"
+  ],
+  "website": "https://github.com/Lewizh11/upload_zey",
+  "success_url": "https://t.me/Shuseikagari",
+  "env": {
+    "BOT_TOKEN": {
+      "description": "Crie um bot no BotFather http://telegram.dog/BotFather e pegue o token de seu bot",
+      "value": "",
+      "required": true
+    },
+    "API_HASH": {
+      "description": "Vá em https://my.telegram.org > API development tools",
+      "value": "",
+      "required": true
+    },
+    "API_ID": {
+          "description": "Vá em https://my.telegram.org > API development tools",
+      "value": "",
+      "required": true
+   	}
+  }
+}

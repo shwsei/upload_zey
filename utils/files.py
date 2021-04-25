@@ -1,5 +1,5 @@
-import aiohttp, asyncio, json, aiofiles
-import os
+import aiohttp, asyncio, json, os
+from humanfriendly import format_size
 from pyrogram import Client
 
 
@@ -47,9 +47,19 @@ async def download_file(data: list, chat_id: int, bot: Client):
  
         if res.status == 200:
 
-          file = await aiofiles.open(f'temp/{EPISODE["name"]}', 'wb')
-          await file.write(await res.read())
-          await file.close()
+          file = open(f'temp/{EPISODE["name"]}', 'wb')
+          while True:
+            chunk = await res.content.read()
+
+            if not chunk:
+              break
+
+            file.write(chunk)
+          
+          file.close()
+
+#         await file.write(await res.read())
+#         await file.close()
 
         else:
           
@@ -61,12 +71,12 @@ async def download_file(data: list, chat_id: int, bot: Client):
 
           return
 
-    SIZE = str(os.path.getsize(f'temp/{EPISODE["name"]}') / 1024 / 1024)
+    SIZE = format_size(os.path.getsize(f'temp/{EPISODE["name"]}'))
     
     await bot.edit_message_text(
       chat_id,
       EDIT.message_id,
-      f'**Começando o upload do arquivo**`\n{EPISODE["name"]}`\nTamanho: `{SIZE[:3]} MB`',
+      f'**Começando o upload do arquivo**`\n{EPISODE["name"]}`\nTamanho: `{SIZE}`',
       parse_mode="markdown"
     )
 
@@ -76,7 +86,7 @@ async def download_file(data: list, chat_id: int, bot: Client):
 
     await bot.send_message(
       chat_id,
-      f'**Upload finalizado**\n`{EPISODE["name"]}`\nTamanho: `{SIZE[:3]} MB`', 
+      f'**Upload finalizado**\n`{EPISODE["name"]}`\nTamanho: `{SIZE}`', 
       parse_mode='markdown'
     )
     os.remove(f'temp/{EPISODE["name"]}')

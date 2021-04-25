@@ -1,5 +1,5 @@
 pillow
 pyrogram
 aiohttp
-aiofiles
+humanfriendly
 python-dotenv

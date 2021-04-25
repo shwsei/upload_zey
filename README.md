@@ -21,7 +21,7 @@ git clone https://github.com/Lewizh11/upload_zey.git
 
 cd upload_zey
 
-cp sample.env .env
+cp sample.env .env # Edite o .env com as informações necessárias
 
 pip3 install -r requirements.txt # ou pip install -r requirements.txt
 

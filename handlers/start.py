@@ -36,7 +36,7 @@ async def help(bot: Client, update):
   )
 
 @Client.on_message(filters.command(['source']))
-async def help(bot: Client, update):
+async def source(bot: Client, update):
   await bot.send_message(
     update.chat.id, "Source: https://github.com/Lewizh11/upload_zey\nBy: @ShuseiKagari", 
   )

@@ -4,7 +4,7 @@ from pyrogram import Client
 
 
 async def get_urls(url: str) -> list:
-  
+
   async with aiohttp.ClientSession() as session:
     RESPONSE = await session.post(
       url,
@@ -18,7 +18,7 @@ async def get_urls(url: str) -> list:
       JSON = json.loads(
         await RESPONSE.text()
       )
-  
+
       LINKS = [ {
           'url': f"{url}{link['name']}",
           'name': link['name']
@@ -34,7 +34,7 @@ async def get_urls(url: str) -> list:
 async def download_file(data: list, chat_id: int, bot: Client):
 
   if len(data) != 0:
-
+    
     EPISODE = data.pop(0)
 
     EDIT = await bot.send_message(
@@ -42,25 +42,35 @@ async def download_file(data: list, chat_id: int, bot: Client):
       parse_mode="markdown"
     )
 
-    request = requests.get(EPISODE['url'], stream = True)
-    if request.status_code == 200:
-    
-        with open(f'temp/{EPISODE["name"]}', 'wb') as file:
-            for chunk in request.iter_content(chunk_size=1024):
-                if chunk:
-                    file.write(chunk)
+    async with aiohttp.ClientSession() as session:
+      async with session.get(EPISODE['url']) as res:
 
-    else:
-      await bot.edit_message_text(
-        chat_id, EDIT.message_id, 
-        '**Erro ao fazer o download do arquivo!**',
-        parse_mode="markdown"
-      )
-      
-      return None
+        if res.status == 200:
+            file = open(f'temp/{EPISODE["name"]}', 'wb')
+
+            while True:
+                chunk = await res.content.read(1024)
+
+                if not chunk:
+                    break
+
+                file.write(chunk)
+
+            file.close()
+
+#         await file.write(await res.read())
+#         await file.close() // Forma antiga de download usando o aiofiles
+        else:
+            await bot.edit_message_text(
+                chat_id, EDIT.message_id,
+                '**Erro ao fazer o download do arquivo!**',
+                parse_mode="markdown"
+            )
+
+            return None
 
     SIZE = format_size(os.path.getsize(f'temp/{EPISODE["name"]}'))
-    
+
     await bot.edit_message_text(
       chat_id,
       EDIT.message_id,

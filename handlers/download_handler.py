@@ -17,14 +17,17 @@ async def download_handler(bot: pyrogram.Client, update):
      
       url = input_list[0]
       url = f'{url}/' if url[len(url)-1:] != '/' else url
-      
+
+    else:
+        url = f'{url}/' if url[len(url)-1:] != '/' else url
+
     urls = await get_urls(url)
 
     if len(urls) != 0:
         
         await update.reply_text('**Começando o download dos arquivos**',parse_mode='markdown')
         
-        episode = input_list[1]
+        episode = input_list[1] if len(input_list) == 2 else False
     
         if episode and episode.isdigit():
 

@@ -1,4 +1,4 @@
-import aiohttp, asyncio, json, os, requests
+import aiohttp, json, os
 from humanfriendly import format_size
 from pyrogram import Client
 
@@ -49,7 +49,7 @@ async def download_file(data: list, chat_id: int, bot: Client):
             file = open(f'temp/{EPISODE["name"]}', 'wb')
 
             while True:
-                chunk = await res.content.read(1024)
+                chunk = await res.content.read(50 * 1024 *1024)
 
                 if not chunk:
                     break
@@ -58,8 +58,6 @@ async def download_file(data: list, chat_id: int, bot: Client):
 
             file.close()
 
-#         await file.write(await res.read())
-#         await file.close() // Forma antiga de download usando o aiofiles
         else:
             await bot.edit_message_text(
                 chat_id, EDIT.message_id,

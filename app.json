@@ -17,6 +17,11 @@
       "value": "",
       "required": true
     },
+    "APP_NAME": {
+          "description": "Coloque o mesmo nome de sua aplicação, isso será usado para fazer o request para a API!",
+          "value": "",
+          "required": true
+    },
     "API_HASH": {
       "description": "Vá em https://my.telegram.org > API development tools",
       "value": "",

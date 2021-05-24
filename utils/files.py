@@ -1,4 +1,4 @@
-import aiohttp, json, os
+import aiohttp, os, json
 from humanfriendly import format_size
 from pyrogram import Client
 
@@ -6,23 +6,19 @@ from pyrogram import Client
 async def get_urls(url: str) -> list:
 
   async with aiohttp.ClientSession() as session:
-    RESPONSE = await session.post(
-      url,
-      data={
-        'page_index': 0
-      }
-    )
+    RESPONSE = await session.post(url, data={'page_index': 0}, headers={
+        'Content-Type': 'application/x-www-form-urlencoded'
+    })
 
     try:
 
-      JSON = json.loads(
-        await RESPONSE.text()
-      )
-
-      LINKS = [ {
+      json_encoded = await RESPONSE.text()
+      res = await session.post('http://localhost:8080/decoder', json = { 'str': json_encoded})
+      json_decoded = await res.json()
+      LINKS = [ {   
           'url': f"{url}{link['name']}",
           'name': link['name']
-        } for link in JSON['data']['files']
+       } for link in json_decoded['json']['data']['files']
       ]
 
       return LINKS

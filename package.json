@@ -1,0 +1,30 @@
+{
+  "name": "uploader",
+  "version": "1.0.0",
+  "description": "[![Chat on Telegram](https://img.shields.io/badge/Telegram-ShuseiKagari-blue)](https://t.me/ShuseiKagari)",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lewizh11/upload_zey.git"
+  },
+  "keywords": [
+    "node",
+    "python",
+    "telegram"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lewizh11/upload_zey/issues"
+  },
+  "homepage": "https://github.com/Lewizh11/upload_zey#readme",
+  "type": "module",
+  "engine": "16^",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

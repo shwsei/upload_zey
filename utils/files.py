@@ -24,7 +24,8 @@ async def get_urls(url: str) -> list:
 
       return LINKS
 
-    except:
+    except Exception as e:
+      print(e)
       return []
 
 

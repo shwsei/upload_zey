@@ -1,0 +1,12 @@
+build:
+  docker:
+    worker: Dockerfile
+run:
+  worker:
+    command:
+      - python3 bot.py
+    image: worker
+  web:
+    command:
+      - npm start
+    image: worker

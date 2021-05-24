@@ -1,33 +1,31 @@
-import aiohttp, json, os
+import aiohttp, os, json
 from humanfriendly import format_size
 from pyrogram import Client
 
+APP_NAME = os.environ.get("APP_NAME")
 
 async def get_urls(url: str) -> list:
 
   async with aiohttp.ClientSession() as session:
-    RESPONSE = await session.post(
-      url,
-      data={
-        'page_index': 0
-      }
-    )
+    RESPONSE = await session.post(url, data={'page_index': 0}, headers={
+        'Content-Type': 'application/x-www-form-urlencoded'
+    })
 
     try:
-
-      JSON = json.loads(
-        await RESPONSE.text()
-      )
-
-      LINKS = [ {
+      url_app = f'https://{APP_NAME}.heroku.com/decoder' if APP_NAME else 'http://localhost/decoder:8080'
+      json_encoded = await RESPONSE.text()
+      res = await session.post(url_app, json = { 'str': json_encoded})
+      json_decoded = await res.json()
+      LINKS = [ {   
           'url': f"{url}{link['name']}",
           'name': link['name']
-        } for link in JSON['data']['files']
+       } for link in json_decoded['json']['data']['files']
       ]
 
       return LINKS
 
-    except:
+    except Exception as e:
+      print(e)
       return []
 
 

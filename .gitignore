@@ -4,3 +4,5 @@ __pycache__/
 *.session-journal
 .env
 backup.py
+node_modules/
+temp/

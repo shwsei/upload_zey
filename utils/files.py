@@ -11,22 +11,23 @@ async def get_urls(url: str) -> list:
         'Content-Type': 'application/x-www-form-urlencoded'
     })
 
-    #try:
-    url_app = f'https://{APP_NAME}.heroku.com/decoder' if APP_NAME else 'http://localhost/decoder:8080'
-    json_encoded = await RESPONSE.text()
-    res = await session.post(url_app, json = { 'str': json_encoded})
-    json_decoded = await res.json()
-    LINKS = [ {   
-        'url': f"{url}{link['name']}",
-        'name': link['name']
-      } for link in json_decoded['json']['data']['files']
-    ]
+    try:
+  
+      url_app = f'http://{APP_NAME}.herokuapp.com/decoder'
+      json_encoded = await RESPONSE.text()
+      res = await session.post(url_app, json = { 'str': json_encoded})
+      json_decoded = await res.json()
+      LINKS = [ {   
+          'url': f"{url}{link['name']}",
+          'name': link['name']
+        } for link in json_decoded['json']['data']['files']
+      ]
 
-    return LINKS
+      return LINKS
 
-    #except Exception as e:
-     # print(e)
-      #return []
+    except:
+
+      return []
 
 
 async def download_file(data: list, chat_id: int, bot: Client):

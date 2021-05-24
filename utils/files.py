@@ -2,6 +2,7 @@ import aiohttp, os, json
 from humanfriendly import format_size
 from pyrogram import Client
 
+APP_NAME = os.environ.get("APP_NAME")
 
 async def get_urls(url: str) -> list:
 
@@ -11,9 +12,9 @@ async def get_urls(url: str) -> list:
     })
 
     try:
-
+      url_app = f'https://{APP_NAME}.heroku.com/decoder' if APP_NAME else 'http://localhost/decoder:8080'
       json_encoded = await RESPONSE.text()
-      res = await session.post('http://localhost/decoder', json = { 'str': json_encoded})
+      res = await session.post(url_app, json = { 'str': json_encoded})
       json_decoded = await res.json()
       LINKS = [ {   
           'url': f"{url}{link['name']}",

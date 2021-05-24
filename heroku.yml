@@ -4,5 +4,6 @@ build:
 run:
   web: npm start 
   worker:
-    command: python3 bot.py
+    command:
+      - python3 bot.py
     image: worker

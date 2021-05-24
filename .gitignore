@@ -5,3 +5,4 @@ __pycache__/
 .env
 backup.py
 node_modules/
+temp/

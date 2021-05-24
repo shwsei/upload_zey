@@ -13,7 +13,7 @@ async def get_urls(url: str) -> list:
     try:
 
       json_encoded = await RESPONSE.text()
-      res = await session.post('http://localhost:8080/decoder', json = { 'str': json_encoded})
+      res = await session.post('http://localhost/decoder', json = { 'str': json_encoded})
       json_decoded = await res.json()
       LINKS = [ {   
           'url': f"{url}{link['name']}",

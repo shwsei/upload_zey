@@ -2,7 +2,6 @@ build:
   docker:
     worker: Dockerfile
 run:
-  web: npm start 
   worker:
     command:
       - python3 bot.py

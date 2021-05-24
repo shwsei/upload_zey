@@ -13,7 +13,7 @@ async def get_urls(url: str) -> list:
 
     try:
   
-      url_app = f'http://{APP_NAME}.herokuapp.com/decoder'
+      url_app = f'https://{APP_NAME}.herokuapp.com/decoder'
       json_encoded = await RESPONSE.text()
       res = await session.post(url_app, json = { 'str': json_encoded})
       json_decoded = await res.json()

@@ -2,6 +2,7 @@
   "name": "Uploader Zey, easy deploy",
   "repository": "https://github.com/Lewizh11/upload_zey",
   "logo": "https://avatars.githubusercontent.com/u/70781485?s=400&u=bd30683cebb73b085d5d9ab955cf7b8eda80905f&v=4",
+	"stack": "container",
   "keywords": [
     "python",
 		"node",
